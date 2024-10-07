@@ -451,16 +451,14 @@
    <script>
     function toggleTask(checkbox) {
         const taskCell = checkbox.closest('.task-cell');
-        const statusCell = checkbox.closest('tr').querySelector('.status-cell'); // الحصول على خلية الحالة
+        const statusCell = checkbox.closest('tr').querySelector('.status-cell');
         const allCheckboxes = checkbox.closest('tr').querySelectorAll('.checkbox');
         const completedCount = Array.from(allCheckboxes).filter(cb => cb.checked).length;
 
-        // تحديث مظهر المهمة
         updateTaskAppearance(taskCell, checkbox.checked);
         updateProgress();
         saveTasksState();  // حفظ الحالة بعد التغييرات
 
-        // تحديث الحالة إذا تم إكمال ثلاث مهام
         if (completedCount === 3) {
             statusCell.textContent = '✅ مكتملة';
         } else {
@@ -501,22 +499,33 @@
             text: task.querySelector('.task-text').textContent,
             completed: task.querySelector('.checkbox').checked
         }));
-        localStorage.setItem('englishLearningTasks', JSON.stringify(tasksState));
+
+        const completedCount = tasksState.filter(task => task.completed).length; // احسب عدد المهام المكتملة
+
+        localStorage.setItem('englishLearningTasks', JSON.stringify({ tasks: tasksState, completedCount: completedCount }));
     }
 
     function loadTasksState() {
         const savedTasks = localStorage.getItem('englishLearningTasks');
         if (savedTasks) {
-            const tasksState = JSON.parse(savedTasks);
-            const tasks = document.querySelectorAll('.task-cell');
-            tasksState.forEach((state, index) => {
-                if (index < tasks.length) {
-                    const task = tasks[index];
+            const { tasks, completedCount } = JSON.parse(savedTasks);
+            const taskCells = document.querySelectorAll('.task-cell');
+            tasks.forEach((state, index) => {
+                if (index < taskCells.length) {
+                    const task = taskCells[index];
                     task.querySelector('.task-text').textContent = state.text;
                     task.querySelector('.checkbox').checked = state.completed;
                     updateTaskAppearance(task, state.completed);
                 }
             });
+
+            // تحديث حالة الخلايا بناءً على عدد المهام المكتملة
+            const statusCell = document.querySelector('.status-cell'); // تأكد من أنك حصلت على الخلية الصحيحة
+            if (completedCount === 3) {
+                statusCell.textContent = '✅ مكتملة';
+            } else {
+                statusCell.textContent = '🔄 قيد التنفيذ';
+            }
         }
         updateProgress();
     }
