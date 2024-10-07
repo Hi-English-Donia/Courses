@@ -183,12 +183,13 @@ th {
     transition: width 0.3s ease;
     border-radius: 10px;
 }
-progressBar {
-        font-size: 24px; /* تكبير حجم النص */
-        font-weight: bold; /* جعل النص سميكًا ليكون أوضح */
-        color: black; /* اختيار لون واضح للنسبة المئوية */
-text-align: center;
-    }
+
+.progressBar {
+    font-size: 24px; /* تكبير حجم النص */
+    font-weight: bold; /* جعل النص سميكًا ليكون أوضح */
+    color: black; /* اختيار لون واضح للنسبة المئوية */
+    text-align: center;
+}
 
 input[type="text"] {
     padding: 12px;
@@ -212,57 +213,59 @@ td {
     transform: scale(1.05);
 }
 
-  .links-cell {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            min-width: 200px;
-        }
+.links-cell {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    min-width: 200px;
+}
 
-  .add-link-btn {
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-        }
+.add-link-btn {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* تأثير جديد */
+}
 
 .add-link-btn:hover {
     transform: translateY(-3px) translateZ(10px);
     box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
 }
 
- .link-input-container {
-            display: none; /* سيتم تغييره إلى flex عند النقر */
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 15px;
-            opacity: 0;
-            transition: all 0.3s ease;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
- .link-input-container.visible {
-            display: flex;
-            opacity: 1;
-        }
+.link-input-container {
+    display: none; /* سيتم تغييره إلى flex عند النقر */
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-  .link-input {
-            display: block !important; /* مهم: يضمن ظهور حقل الإدخال */
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #7A86B6;
-            border-radius: 8px;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
+.link-input-container.visible {
+    display: flex;
+    opacity: 1;
+}
+
+.link-input {
+    display: block !important; /* مهم: يضمن ظهور حقل الإدخال */
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #7A86B6;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
 
 .link-input:focus {
     border-color: #4CAF50;
@@ -270,17 +273,17 @@ td {
     outline: none;
 }
 
-  .save-btn {
-            background: linear-gradient(135deg, #7A86B6 0%, #6870A4 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
+.save-btn {
+    background: linear-gradient(135deg, #7A86B6 0%, #6870A4 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
 
 .save-btn:hover, .edit-btn:hover {
     transform: translateY(-2px) translateZ(5px);
@@ -288,15 +291,16 @@ td {
 }
 
 .link-display {
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 .link-text {
     color: #4285f4;
     font-weight: 700;
@@ -329,29 +333,51 @@ td {
 table th:nth-child(4) {
     background: linear-gradient(135deg, #4285f4 0%, #2d3250 100%);
 }
+
+/* New Styles for Progress Bar */
+.progress {
+    height: 20px; /* زيادة الارتفاع */
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    transition: width 0.3s ease, background 0.3s ease; /* إضافة تأثير للون */
+    border-radius: 10px;
+    position: relative; /* موقع نسبي لنص النسبة */
+}
+
+.progress::after {
+    content: attr(data-percentage); /* عرض النسبة */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: white; /* لون النص */
+}
+
+
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>جدول المهام الأسبوعي لتعلم اللغة الإنجليزية 🎯</h2>
-        <div class="progress-container">
-            <div class="progress-title">تقدم الأسبوع</div>
-            <div class="progress-bar">
-                <div class="progress" id="progressBar">
-<div id="progressBarContainer" style="width: 100%; background-color: #ddd;">
-    <div id="progressBar" style="width: 50%; height: 30px; background-color: #4caf50;">50%</div>
-</div>
+    <h2>جدول المهام الأسبوعي لتعلم اللغة الإنجليزية 🎯</h2>
+    <div class="progress-container">
+        <div class="progress-title">تقدم الأسبوع</div>
+        <div class="progress-bar">
+            <div class="progress" id="progressBar">
+                <div id="progressBarContainer" style="width: 100%; background-color: #ddd;">
+                    <div id="progressBar" style="width: 50%; height: 30px; background-color: #4caf50;">50%</div>
+                </div>
             </div>
         </div>
         <table>
             <tr>
-    <th>اليوم 📅</th>
-    <th>المهام 📝</th>
-    <th>الحالة ✔️</th>
-    <th>الروابط 🔗</th>
-</tr>
+                <th>اليوم 📅</th>
+                <th>المهام 📝</th>
+                <th>الحالة ✔️</th>
+                <th>الروابط 🔗</th>
+            </tr>
             <!-- السبت -->
-                <tr class="task-row" data-day="saturday">
+            <tr class="task-row" data-day="saturday">
                 <td class="day-cell" style="background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%)">السبت 🌅</td>
                 <td>
                     <div class="task-cell">
@@ -380,17 +406,17 @@ table th:nth-child(4) {
                     </div>
                 </td>
                 <td class="status-cell">🔄 قيد التنفيذ</td>
- <td class="links-cell" data-day="saturday">
-        <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-        <div class="link-input-container">
-            <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
-            <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-        </div>
-        <div class="link-display">
-            <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-            <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-        </div>
-    </td>
+                <td class="links-cell" data-day="saturday">
+                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
+                    <div class="link-input-container">
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
+                    </div>
+                    <div class="link-display">
+                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
+                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
+                    </div>
+                </td>
             </tr>
 
             <!-- الأحد -->
@@ -423,17 +449,17 @@ table th:nth-child(4) {
                     </div>
                 </td>
                 <td class="status-cell">🔄 قيد التنفيذ</td>
- <td class="links-cell" data-day="sunday">
-        <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-        <div class="link-input-container">
-            <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
-            <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-        </div>
-        <div class="link-display">
-            <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-            <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-        </div>
-    </td>
+                <td class="links-cell" data-day="sunday">
+                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
+                    <div class="link-input-container">
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
+                    </div>
+                    <div class="link-display">
+                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
+                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
+                    </div>
+                </td>
             </tr>
 
             <!-- الإثنين -->
@@ -466,17 +492,17 @@ table th:nth-child(4) {
                     </div>
                 </td>
                 <td class="status-cell">🔄 قيد التنفيذ</td>
-<td class="links-cell" data-day="monday">
-        <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-        <div class="link-input-container">
-            <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
-            <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-        </div>
-        <div class="link-display">
-            <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-            <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-        </div>
-    </td>
+                <td class="links-cell" data-day="monday">
+                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
+                    <div class="link-input-container">
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
+                    </div>
+                    <div class="link-display">
+                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
+                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
+                    </div>
+                </td>
             </tr>
 
             <!-- الثلاثاء -->
@@ -494,7 +520,7 @@ table th:nth-child(4) {
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">إعداد قائمة مفردات جديدة 📜</span>
+                            <span class="task-text">الاستماع إلى البودكاست 🎧</span>
                             <input type="text" class="edit-input" />
                             <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
@@ -502,34 +528,34 @@ table th:nth-child(4) {
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">قراءة مقال باللغة الإنجليزية 📰</span>
+                            <span class="task-text">ممارسة الكتابة في المدونة الخاصة بك 💻</span>
                             <input type="text" class="edit-input" />
                             <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                 </td>
                 <td class="status-cell">🔄 قيد التنفيذ</td>
- <td class="links-cell" data-day="tuesday">
-        <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-        <div class="link-input-container">
-            <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
-            <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-        </div>
-        <div class="link-display">
-            <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-            <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-        </div>
-    </td>
+                <td class="links-cell" data-day="tuesday">
+                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
+                    <div class="link-input-container">
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
+                    </div>
+                    <div class="link-display">
+                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
+                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
+                    </div>
+                </td>
             </tr>
 
             <!-- الأربعاء -->
             <tr class="task-row" data-day="wednesday">
-                <td class="day-cell" style="background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%)">الأربعاء 🌼</td>
+                <td class="day-cell" style="background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%)">الأربعاء 🌞</td>
                 <td>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">تبادل المحادثات مع متحدثين أصليين 🌍</span>
+                            <span class="task-text">تعلم قواعد جديدة 📖</span>
                             <input type="text" class="edit-input" />
                             <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
@@ -537,7 +563,7 @@ table th:nth-child(4) {
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">استماع إلى بودكاست باللغة الإنجليزية 🎧</span>
+                            <span class="task-text">مشاهدة الأفلام باللغة الإنجليزية 🎬</span>
                             <input type="text" class="edit-input" />
                             <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
@@ -545,34 +571,34 @@ table th:nth-child(4) {
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">ممارسة الكتابة عن موضوع معين ✍️</span>
+                            <span class="task-text">تدوين الملاحظات حول الدروس 📝</span>
                             <input type="text" class="edit-input" />
                             <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                 </td>
                 <td class="status-cell">🔄 قيد التنفيذ</td>
- <td class="links-cell" data-day="wednesday">
-        <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-        <div class="link-input-container">
-            <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
-            <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-        </div>
-        <div class="link-display">
-            <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-            <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-        </div>
-    </td>
+                <td class="links-cell" data-day="wednesday">
+                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
+                    <div class="link-input-container">
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
+                    </div>
+                    <div class="link-display">
+                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
+                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
+                    </div>
+                </td>
             </tr>
 
             <!-- الخميس -->
             <tr class="task-row" data-day="thursday">
-                <td class="day-cell" style="background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%)">الخميس 📆</td>
+                <td class="day-cell" style="background: linear-gradient(135deg, #98FB98 0%, #00FF7F 100%)">الخميس 🌟</td>
                 <td>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">استماع إلى محاضرة عبر الإنترنت 🎧</span>
+                            <span class="task-text">تحضير لامتحان المحادثة 📖</span>
                             <input type="text" class="edit-input" />
                             <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
@@ -580,7 +606,7 @@ table th:nth-child(4) {
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">مشاهدة فيلم باللغة الإنجليزية 🎬</span>
+                            <span class="task-text">التواصل مع أصدقاء اللغة 🎓</span>
                             <input type="text" class="edit-input" />
                             <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
@@ -588,34 +614,34 @@ table th:nth-child(4) {
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">تحضير لمناقشة باللغة الإنجليزية 📢</span>
+                            <span class="task-text">قراءة الأخبار باللغة الإنجليزية 📰</span>
                             <input type="text" class="edit-input" />
                             <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                 </td>
                 <td class="status-cell">🔄 قيد التنفيذ</td>
- <td class="links-cell" data-day="thursday">
-        <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-        <div class="link-input-container">
-            <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
-            <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-        </div>
-        <div class="link-display">
-            <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-            <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-        </div>
-    </td>
+                <td class="links-cell" data-day="thursday">
+                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
+                    <div class="link-input-container">
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
+                    </div>
+                    <div class="link-display">
+                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
+                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
+                    </div>
+                </td>
             </tr>
 
             <!-- الجمعة -->
             <tr class="task-row" data-day="friday">
-                <td class="day-cell" style="background: linear-gradient(135deg, #87CEFA 0%, #00BFFF 100%)">الجمعة 🌇</td>
+                <td class="day-cell" style="background: linear-gradient(135deg, #FFA07A 0%, #FF4500 100%)">الجمعة 🌤️</td>
                 <td>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">مراجعة جميع المهارات المكتسبة ✅</span>
+                            <span class="task-text">تعلم 5 تعابير جديدة 😄</span>
                             <input type="text" class="edit-input" />
                             <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
@@ -623,7 +649,7 @@ table th:nth-child(4) {
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">تدوين الأفكار والتجارب الجديدة 📝</span>
+                            <span class="task-text">مراجعة الدروس السابقة 📚</span>
                             <input type="text" class="edit-input" />
                             <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
@@ -631,27 +657,28 @@ table th:nth-child(4) {
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">مشاركة المهارات مع الآخرين 🌟</span>
+                            <span class="task-text">كتابة تقرير عن الأسبوع 📝</span>
                             <input type="text" class="edit-input" />
                             <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                 </td>
                 <td class="status-cell">🔄 قيد التنفيذ</td>
- <td class="links-cell" data-day="friday">
-        <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-        <div class="link-input-container">
-            <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
-            <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-        </div>
-        <div class="link-display">
-            <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-            <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-        </div>
-    </td>
+                <td class="links-cell" data-day="friday">
+                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
+                    <div class="link-input-container">
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
+                    </div>
+                    <div class="link-display">
+                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
+                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
+                    </div>
+                </td>
             </tr>
         </table>
     </div>
+</div>
 
   <script>
     function toggleTask(checkbox) {
@@ -663,7 +690,7 @@ table th:nth-child(4) {
 
         updateTaskAppearance(taskCell, checkbox.checked);
         updateProgress();
-        saveTasksState();  // حفظ الحالة بعد التغييرات
+        saveTasksState(); // حفظ الحالة بعد التغييرات
 
         if (completedCount === 3) {
             statusCell.textContent = '✅ مكتملة';
@@ -688,20 +715,20 @@ table th:nth-child(4) {
             button.textContent = "تعديل";
             updateTaskAppearance(taskCell, taskCell.querySelector('.checkbox').checked);
             updateProgress();
-            saveTasksState();  // حفظ الحالة بعد التعديل
+            saveTasksState(); // حفظ الحالة بعد التعديل
         }
     }
 
     function updateProgress() {
-    const progressBar = document.getElementById('progressBar');
-    const checkboxes = document.querySelectorAll('.checkbox');
-    const completedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-    const totalCount = checkboxes.length;
-    const progressPercentage = totalCount === 0 ? 0 : (completedCount / totalCount) * 100;
-    
-    progressBar.style.width = progressPercentage + '%';
-    progressBar.textContent = `${Math.round(progressPercentage)}%`;  // تأكد من تحديث النص هنا
-}
+        const progressBar = document.getElementById('progressBar');
+        const checkboxes = document.querySelectorAll('.checkbox');
+        const completedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+        const totalCount = checkboxes.length;
+        const progressPercentage = totalCount === 0 ? 0 : (completedCount / totalCount) * 100;
+
+        progressBar.style.width = progressPercentage + '%';
+        progressBar.textContent = `${Math.round(progressPercentage)}%`; // تأكد من تحديث النص هنا
+    }
 
     function saveTasksState() {
         const allTaskRows = document.querySelectorAll('.task-row'); // تأكد من أن كل صف يمثل يومًا ولديه الكلاس 'task-row'
@@ -719,6 +746,7 @@ table th:nth-child(4) {
             tasksData[dayId] = { tasks: tasksState, completedCount: completedCount };
         });
 
+        // استبدل localStorage بـ IndexedDB هنا إذا لزم الأمر
         localStorage.setItem('englishLearningTasks', JSON.stringify(tasksData));
         console.log('تم حفظ المهام لكل يوم:', tasksData);
     }
@@ -784,10 +812,10 @@ table th:nth-child(4) {
         const cell = btn.closest('.links-cell');
         const inputContainer = cell.querySelector('.link-input-container');
         const input = cell.querySelector('.link-input');
-        
+
         btn.style.display = 'none';
         inputContainer.style.display = 'flex';
-        
+
         setTimeout(() => {
             inputContainer.style.opacity = '1';
             input.focus();
@@ -806,9 +834,9 @@ table th:nth-child(4) {
 
             // تعديل لعرض "اضغط هنا" باللون الأزرق والخط السميك
             linkText.href = link.startsWith('http') ? link : 'https://' + link;
-            linkText.textContent = 'اضغط هنا';  // النص المعروض سيكون "اضغط هنا"
-            linkText.style.color = 'blue';  // تغيير اللون إلى الأزرق
-            linkText.style.fontWeight = 'bold';  // تغيير الخط ليكون سميكاً
+            linkText.textContent = 'اضغط هنا'; // النص المعروض سيكون "اضغط هنا"
+            linkText.style.color = 'blue'; // تغيير اللون إلى الأزرق
+            linkText.style.fontWeight = 'bold'; // تغيير الخط ليكون سميكاً
 
             const inputContainer = cell.querySelector('.link-input-container');
             inputContainer.style.opacity = '0';
@@ -831,11 +859,11 @@ table th:nth-child(4) {
         const inputContainer = cell.querySelector('.link-input-container');
         const input = cell.querySelector('.link-input');
         const linkText = cell.querySelector('.link-text');
-        
+
         input.value = linkText.textContent;
         linkDisplay.style.display = 'none';
         inputContainer.style.display = 'flex';
-        
+
         setTimeout(() => {
             inputContainer.style.opacity = '1';
             input.focus();
@@ -843,7 +871,7 @@ table th:nth-child(4) {
     }
 
     function saveLinkForDay(dayId, link) {
-        if (typeof(Storage) !== "undefined") {  
+        if (typeof(Storage) !== "undefined") {
             if (link) {
                 const links = JSON.parse(localStorage.getItem('dayLinks') || '{}');
                 links[dayId] = link;
@@ -858,26 +886,26 @@ table th:nth-child(4) {
 
     function loadSavedLinks() {
         const links = JSON.parse(localStorage.getItem('dayLinks') || '{}');
-        
+
         document.querySelectorAll('.links-cell').forEach(cell => {
             const dayId = cell.dataset.day;
             const savedLink = links[dayId];
-            
+
             if (savedLink) {
                 const linkText = cell.querySelector('.link-text');
                 const addBtn = cell.querySelector('.add-link-btn');
                 const linkDisplay = cell.querySelector('.link-display');
-                
+
                 linkText.href = savedLink.startsWith('http') ? savedLink : 'https://' + savedLink;
                 linkText.textContent = 'اضغط هنا'; // تعديل النص إلى "اضغط هنا"
                 linkText.style.color = 'blue';
                 linkText.style.fontWeight = 'bold';
-                
+
                 addBtn.style.display = 'none';
                 linkDisplay.style.display = 'flex';
             }
         });
-        
+
         console.log('تم استرجاع الروابط المحفوظة.');
     }
 
@@ -886,5 +914,6 @@ table th:nth-child(4) {
         loadSavedLinks();
     });
 </script>
+
 </body>
 </html>
