@@ -2,27 +2,49 @@
 <html dir="rtl">
 <head>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+        /* Importing Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
 
+/* Global Styles */
 body {
     font-family: 'Cairo', sans-serif;
     margin: 20px;
     background: linear-gradient(135deg, #f6f8ff 0%, #e9f0ff 100%);
     font-size: 16px;
     animation: fadeIn 1s ease-in-out;
+    transition: all 0.3s ease;
+    color: #2D3250;
 }
 
+/* Animation Definitions */
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
 
+@keyframes bounceIn {
+    0% { transform: scale(0.9); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bounceCompleted {
+    0% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Container Styles */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
+/* Headings */
 h2 {
     color: #2D3250;
     text-align: center;
@@ -33,15 +55,11 @@ h2 {
     animation: bounceIn 0.8s ease-in-out;
 }
 
-@keyframes bounceIn {
-    0% { transform: scale(0.9); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
+/* Table Styles */
 table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 12px;
+    border-collapse: collapse; /* Better collapse for tables */
+    margin-bottom: 20px;
 }
 
 th {
@@ -55,15 +73,21 @@ th {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Day Cell Styles */
 .day-cell {
     font-size: 22px;
     font-weight: 700;
-    text-align: center;
     border-radius: 12px;
     min-width: 150px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    padding: 15px;
     color: white;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .day-cell:nth-child(odd) {
@@ -74,16 +98,22 @@ th {
     background: linear-gradient(135deg, #FF9A8B 0%, #FF8E9E 100%);
 }
 
+.day-cell:hover, .day-cell:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    outline: none; /* For accessibility */
+}
+
+/* Task Cell Styles */
 .task-cell {
     background: white;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.3s ease;
-    transform: perspective(500px) translateZ(0);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .task-cell:hover {
@@ -96,11 +126,7 @@ th {
     animation: bounceCompleted 0.6s ease;
 }
 
-@keyframes bounceCompleted {
-    0% { transform: scale(0.9); }
-    100% { transform: scale(1); }
-}
-
+/* Checkbox Styles */
 .checkbox-wrapper {
     display: flex;
     gap: 15px;
@@ -114,6 +140,7 @@ th {
     accent-color: #4CAF50;
 }
 
+/* Task Text */
 .task-text {
     font-size: 18px;
     color: #2D3250;
@@ -121,23 +148,28 @@ th {
     margin: 0 15px;
 }
 
-.edit-btn {
-    background: linear-gradient(135deg, #7A86B6 0%, #6870A4 100%);
-    color: white;
+/* Button Styles */
+button {
     border: none;
-    padding: 12px 25px;
     border-radius: 8px;
+    padding: 12px 25px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
-    transition: all 0.3s ease;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.edit-btn:hover {
+.edit-btn, .save-btn, .add-link-btn {
+    background: linear-gradient(135deg, #7A86B6 0%, #6870A4 100%);
+}
+
+button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(122, 134, 182, 0.3);
+    box-shadow: 0 8px 25px rgba(122, 134, 182, 0.4);
 }
 
+/* Status Cell */
 .status-cell {
     background: white;
     border-radius: 12px;
@@ -149,6 +181,7 @@ th {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* Progress Bar Styles */
 .progress-container {
     background: white;
     padding: 20px;
@@ -156,11 +189,6 @@ th {
     margin-bottom: 30px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     animation: fadeInUp 1.2s ease-in-out;
-}
-
-@keyframes fadeInUp {
-    0% { transform: translateY(20px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
 }
 
 .progress-title {
@@ -171,76 +199,55 @@ th {
 }
 
 .progress-bar {
-    height: 15px;
+    height: 20px;
     background-color: #f0f0f0;
     border-radius: 10px;
     overflow: hidden;
+    position: relative;
 }
 
 .progress {
     height: 100%;
-    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-    transition: width 0.3s ease;
+    width: 0%; /* Initially set to 0 */
+    background: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%);
     border-radius: 10px;
-}
-
-.progressBar {
-    font-size: 24px; /* تكبير حجم النص */
-    font-weight: bold; /* جعل النص سميكًا ليكون أوضح */
-    color: black; /* اختيار لون واضح للنسبة المئوية */
+    transition: width 0.5s ease, background-color 0.5s ease; /* Smooth transition */
+    position: relative;
     text-align: center;
-}
-
-input[type="text"] {
-    padding: 12px;
-    border: 2px solid #7A86B6;
-    border-radius: 8px;
-    font-size: 16px;
-    width: 60%;
-    display: none;
-}
-
-.edit-confirm {
-    display: none;
-}
-
-td {
-    padding: 10px;
-}
-
-.day-cell:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
-}
-
-.links-cell {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    min-width: 200px;
-}
-
-.add-link-btn {
-    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
     color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* تأثير جديد */
+    font-weight: bold;
 }
 
-.add-link-btn:hover {
-    transform: translateY(-3px) translateZ(10px);
-    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+.progress:hover::after {
+    content: attr(data-progress) '%'; /* Tooltip on hover */
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+/* For smaller screens */
+@media (max-width: 768px) {
+    .progress-container {
+        padding: 15px;
+    }
+    .progress-bar {
+        height: 15px;
+    }
+    .progress-title {
+        font-size: 18px;
+    }
 }
 
-.link-input-container {
-    display: none; /* سيتم تغييره إلى flex عند النقر */
+/* Link Input Styles */
+.link-input-container, .link-display {
+    display: none;
     flex-direction: column;
     gap: 15px;
     margin-top: 15px;
@@ -258,7 +265,6 @@ td {
 }
 
 .link-input {
-    display: block !important; /* مهم: يضمن ظهور حقل الإدخال */
     width: 100%;
     padding: 12px;
     border: 2px solid #7A86B6;
@@ -273,41 +279,12 @@ td {
     outline: none;
 }
 
-.save-btn {
-    background: linear-gradient(135deg, #7A86B6 0%, #6870A4 100%);
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.save-btn:hover, .edit-btn:hover {
-    transform: translateY(-2px) translateZ(5px);
-    box-shadow: 0 8px 25px rgba(122, 134, 182, 0.4);
-}
-
-.link-display {
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 .link-text {
     color: #4285f4;
     font-weight: 700;
     font-size: 18px;
     text-decoration: none;
     word-break: break-all;
-    transition: all 0.3s ease;
     padding: 10px;
     border-radius: 8px;
     background: rgba(66, 133, 244, 0.1);
@@ -318,57 +295,41 @@ td {
     transform: translateY(-2px);
 }
 
-@keyframes fadeScale {
-    0% {
-        opacity: 0;
-        transform: scale(0.9);
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        margin: 10px;
     }
-    100% {
-        opacity: 1;
-        transform: scale(1);
+
+    h2 {
+        font-size: 28px;
+    }
+
+    .task-cell, .status-cell, .links-cell {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    table, th, td {
+        font-size: 14px;
     }
 }
-
-/* Adjust table header for new column */
-table th:nth-child(4) {
-    background: linear-gradient(135deg, #4285f4 0%, #2d3250 100%);
-}
-
-/* New Styles for Progress Bar */
-.progress {
-    height: 20px; /* زيادة الارتفاع */
-    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-    transition: width 0.3s ease, background 0.3s ease; /* إضافة تأثير للون */
-    border-radius: 10px;
-    position: relative; /* موقع نسبي لنص النسبة */
-}
-
-.progress::after {
-    content: attr(data-percentage); /* عرض النسبة */
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: bold;
-    color: white; /* لون النص */
-}
-
-
 
     </style>
 </head>
 <body>
     <div class="container">
-    <h2>جدول المهام الأسبوعي لتعلم اللغة الإنجليزية 🎯</h2>
-    <div class="progress-container">
+        <h2>جدول المهام الأسبوعي لتعلم اللغة الإنجليزية 🎯</h2>
+        
+        <!-- Progress Bar Section -->    <div class="progress-container">
         <div class="progress-title">تقدم الأسبوع</div>
         <div class="progress-bar">
-            <div class="progress" id="progressBar">
-                <div id="progressBarContainer" style="width: 100%; background-color: #ddd;">
-                    <div id="progressBar" style="width: 50%; height: 30px; background-color: #4caf50;">50%</div>
-                </div>
-            </div>
+            <div class="progress" id="progressBar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
         </div>
+        </div>
+
+        <!-- Task Table -->
         <table>
             <tr>
                 <th>اليوم 📅</th>
@@ -376,32 +337,28 @@ table th:nth-child(4) {
                 <th>الحالة ✔️</th>
                 <th>الروابط 🔗</th>
             </tr>
+
+            <!-- Loop through days -->
             <!-- السبت -->
             <tr class="task-row" data-day="saturday">
-                <td class="day-cell" style="background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%)">السبت 🌅</td>
+                <td class="day-cell">السبت 🌅</td>
                 <td>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">تعلم 10 كلمات جديدة 📚</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">مراجعة قاعدة النحو 📝</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">مشاهدة فيديو تعليمي 🎥</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                 </td>
@@ -409,7 +366,7 @@ table th:nth-child(4) {
                 <td class="links-cell" data-day="saturday">
                     <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
                     <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
                         <button class="save-btn" onclick="saveLink(this)">حفظ</button>
                     </div>
                     <div class="link-display">
@@ -421,30 +378,24 @@ table th:nth-child(4) {
 
             <!-- الأحد -->
             <tr class="task-row" data-day="sunday">
-                <td class="day-cell" style="background: linear-gradient(135deg, #87CEFA 0%, #00BFFF 100%)">الأحد ☀️</td>
+                <td class="day-cell">الأحد ☀️</td>
                 <td>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">قراءة 20 صفحة من كتاب 📖</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">كتابة ملخص عن المقالات ✍️</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">ممارسة التحدث مع شخص آخر 💬</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                 </td>
@@ -452,7 +403,7 @@ table th:nth-child(4) {
                 <td class="links-cell" data-day="sunday">
                     <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
                     <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
                         <button class="save-btn" onclick="saveLink(this)">حفظ</button>
                     </div>
                     <div class="link-display">
@@ -464,30 +415,24 @@ table th:nth-child(4) {
 
             <!-- الإثنين -->
             <tr class="task-row" data-day="monday">
-                <td class="day-cell" style="background: linear-gradient(135deg, #FF6347 0%, #FF4500 100%)">الإثنين 📅</td>
+                <td class="day-cell">الإثنين 📅</td>
                 <td>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">ممارسة المحادثة مع صديق 💬</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">تدريب على النطق 📣</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">كتابة نص قصير باللغة الإنجليزية ✍️</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                 </td>
@@ -495,7 +440,7 @@ table th:nth-child(4) {
                 <td class="links-cell" data-day="monday">
                     <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
                     <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
                         <button class="save-btn" onclick="saveLink(this)">حفظ</button>
                     </div>
                     <div class="link-display">
@@ -507,30 +452,24 @@ table th:nth-child(4) {
 
             <!-- الثلاثاء -->
             <tr class="task-row" data-day="tuesday">
-                <td class="day-cell" style="background: linear-gradient(135deg, #8A2BE2 0%, #7B68EE 100%)">الثلاثاء 🌈</td>
+                <td class="day-cell">الثلاثاء 🌈</td>
                 <td>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">حضور دورة تدريبية عبر الإنترنت 📅</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">الاستماع إلى البودكاست 🎧</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">ممارسة الكتابة في المدونة الخاصة بك 💻</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                 </td>
@@ -538,7 +477,7 @@ table th:nth-child(4) {
                 <td class="links-cell" data-day="tuesday">
                     <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
                     <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
                         <button class="save-btn" onclick="saveLink(this)">حفظ</button>
                     </div>
                     <div class="link-display">
@@ -550,30 +489,24 @@ table th:nth-child(4) {
 
             <!-- الأربعاء -->
             <tr class="task-row" data-day="wednesday">
-                <td class="day-cell" style="background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%)">الأربعاء 🌞</td>
+                <td class="day-cell">الأربعاء 🌞</td>
                 <td>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">تعلم قواعد جديدة 📖</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">مشاهدة الأفلام باللغة الإنجليزية 🎬</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">تدوين الملاحظات حول الدروس 📝</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                 </td>
@@ -581,7 +514,7 @@ table th:nth-child(4) {
                 <td class="links-cell" data-day="wednesday">
                     <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
                     <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
                         <button class="save-btn" onclick="saveLink(this)">حفظ</button>
                     </div>
                     <div class="link-display">
@@ -593,30 +526,24 @@ table th:nth-child(4) {
 
             <!-- الخميس -->
             <tr class="task-row" data-day="thursday">
-                <td class="day-cell" style="background: linear-gradient(135deg, #98FB98 0%, #00FF7F 100%)">الخميس 🌟</td>
+                <td class="day-cell">الخميس 🌟</td>
                 <td>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">تحضير لامتحان المحادثة 📖</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">التواصل مع أصدقاء اللغة 🎓</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">قراءة الأخبار باللغة الإنجليزية 📰</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                 </td>
@@ -624,7 +551,7 @@ table th:nth-child(4) {
                 <td class="links-cell" data-day="thursday">
                     <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
                     <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
                         <button class="save-btn" onclick="saveLink(this)">حفظ</button>
                     </div>
                     <div class="link-display">
@@ -636,30 +563,24 @@ table th:nth-child(4) {
 
             <!-- الجمعة -->
             <tr class="task-row" data-day="friday">
-                <td class="day-cell" style="background: linear-gradient(135deg, #FFA07A 0%, #FF4500 100%)">الجمعة 🌤️</td>
+                <td class="day-cell">الجمعة 🌤️</td>
                 <td>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">تعلم 5 تعابير جديدة 😄</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">مراجعة الدروس السابقة 📚</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                     <div class="task-cell">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
                             <span class="task-text">كتابة تقرير عن الأسبوع 📝</span>
-                            <input type="text" class="edit-input" />
-                            <button class="edit-btn" onclick="editTask(this)">تعديل</button>
                         </div>
                     </div>
                 </td>
@@ -667,7 +588,7 @@ table th:nth-child(4) {
                 <td class="links-cell" data-day="friday">
                     <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
                     <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا..." />
+                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
                         <button class="save-btn" onclick="saveLink(this)">حفظ</button>
                     </div>
                     <div class="link-display">
@@ -678,242 +599,246 @@ table th:nth-child(4) {
             </tr>
         </table>
     </div>
-</div>
 
   <script>
-    function toggleTask(checkbox) {
-        const taskCell = checkbox.closest('.task-cell');
-        const row = checkbox.closest('.task-row'); // الحصول على الصف الذي يمثل اليوم
-        const statusCell = row.querySelector('.status-cell');
-        const allCheckboxes = row.querySelectorAll('.checkbox');
-        const completedCount = Array.from(allCheckboxes).filter(cb => cb.checked).length;
+    // Toggles task completion, updates the appearance, progress, and saves the state
+function toggleTask(checkbox) {
+    const taskCell = checkbox.closest('.task-cell');
+    const row = checkbox.closest('.task-row');
+    const statusCell = row.querySelector('.status-cell');
+    const allCheckboxes = row.querySelectorAll('.checkbox');
+    const completedCount = Array.from(allCheckboxes).filter(cb => cb.checked).length;
 
-        updateTaskAppearance(taskCell, checkbox.checked);
+    updateTaskAppearance(taskCell, checkbox.checked);
+    updateProgress();
+    saveTasksState();
+
+    statusCell.textContent = completedCount === 3 ? '✅ مكتملة' : '🔄 قيد التنفيذ';
+}
+
+// Allows editing the task text, updates progress and saves the new state
+function editTask(button) {
+    const taskCell = button.closest('.task-cell');
+    const editInput = taskCell.querySelector('.edit-input');
+    const taskText = taskCell.querySelector('.task-text');
+
+    if (editInput.style.display === "none" || editInput.style.display === "") {
+        editInput.style.display = "block";
+        editInput.value = taskText.textContent;
+        button.textContent = "حفظ";
+    } else {
+        taskText.textContent = editInput.value;
+        editInput.style.display = "none";
+        button.textContent = "تعديل";
+        updateTaskAppearance(taskCell, taskCell.querySelector('.checkbox').checked);
         updateProgress();
-        saveTasksState(); // حفظ الحالة بعد التغييرات
-
-        if (completedCount === 3) {
-            statusCell.textContent = '✅ مكتملة';
-        } else {
-            statusCell.textContent = '🔄 قيد التنفيذ';
-        }
+        saveTasksState();
     }
+}
 
-    function editTask(button) {
-        const taskCell = button.closest('.task-cell');
-        const row = button.closest('.task-row'); // الحصول على الصف الذي يمثل اليوم
-        const editInput = taskCell.querySelector('.edit-input');
-        const taskText = taskCell.querySelector('.task-text');
+// Updates the progress bar based on completed tasks
+function updateProgress() {
+    const progressBar = document.getElementById('progressBar');
+    const checkboxes = document.querySelectorAll('.checkbox');
+    const completedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+    const totalCount = checkboxes.length;
+    const progressPercentage = totalCount === 0 ? 0 : (completedCount / totalCount) * 100;
 
-        if (editInput.style.display === "none") {
-            editInput.style.display = "block";
-            editInput.value = taskText.textContent;
-            button.textContent = "حفظ";
-        } else {
-            taskText.textContent = editInput.value;
-            editInput.style.display = "none";
-            button.textContent = "تعديل";
-            updateTaskAppearance(taskCell, taskCell.querySelector('.checkbox').checked);
-            updateProgress();
-            saveTasksState(); // حفظ الحالة بعد التعديل
-        }
+    // Smooth transition and updating the width
+    progressBar.style.width = progressPercentage + '%';
+    progressBar.textContent = `${Math.round(progressPercentage)}%`;
+
+    // Update data attribute for hover tooltip
+    progressBar.setAttribute('data-progress', Math.round(progressPercentage));
+
+    // Dynamically change color based on percentage
+    if (progressPercentage <= 33) {
+        progressBar.style.background = 'linear-gradient(135deg, #ff4e50 0%, #ff6347 100%)'; // Red tones for low progress
+    } else if (progressPercentage <= 66) {
+        progressBar.style.background = 'linear-gradient(135deg, #f9d423 0%, #f6e58d 100%)'; // Yellow tones for mid progress
+    } else {
+        progressBar.style.background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)'; // Green tones for high progress
     }
+}
 
-    function updateProgress() {
-        const progressBar = document.getElementById('progressBar');
-        const checkboxes = document.querySelectorAll('.checkbox');
-        const completedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-        const totalCount = checkboxes.length;
-        const progressPercentage = totalCount === 0 ? 0 : (completedCount / totalCount) * 100;
 
-        progressBar.style.width = progressPercentage + '%';
-        progressBar.textContent = `${Math.round(progressPercentage)}%`; // تأكد من تحديث النص هنا
-    }
+// Saves the state of tasks in localStorage
+function saveTasksState() {
+    const allTaskRows = document.querySelectorAll('.task-row');
+    const tasksData = {};
 
-    function saveTasksState() {
-        const allTaskRows = document.querySelectorAll('.task-row'); // تأكد من أن كل صف يمثل يومًا ولديه الكلاس 'task-row'
-        const tasksData = {};
+    allTaskRows.forEach(row => {
+        const dayId = row.dataset.day;
+        const tasks = row.querySelectorAll('.task-cell');
+        const tasksState = Array.from(tasks).map(task => ({
+            text: task.querySelector('.task-text').textContent,
+            completed: task.querySelector('.checkbox').checked
+        }));
+        const completedCount = tasksState.filter(task => task.completed).length;
+
+        tasksData[dayId] = { tasks: tasksState, completedCount };
+    });
+
+    localStorage.setItem('englishLearningTasks', JSON.stringify(tasksData));
+    console.log('تم حفظ المهام لكل يوم:', tasksData);
+}
+
+// Loads the tasks state from localStorage and applies it
+function loadTasksState() {
+    const savedTasks = localStorage.getItem('englishLearningTasks');
+    if (savedTasks) {
+        const tasksData = JSON.parse(savedTasks);
+        const allTaskRows = document.querySelectorAll('.task-row');
 
         allTaskRows.forEach(row => {
-            const dayId = row.dataset.day; // الحصول على معرف اليوم
-            const tasks = row.querySelectorAll('.task-cell');
-            const tasksState = Array.from(tasks).map(task => ({
-                text: task.querySelector('.task-text').textContent,
-                completed: task.querySelector('.checkbox').checked
-            }));
-            const completedCount = tasksState.filter(task => task.completed).length;
+            const dayId = row.dataset.day;
+            const dayTasks = tasksData[dayId];
 
-            tasksData[dayId] = { tasks: tasksState, completedCount: completedCount };
-        });
-
-        // استبدل localStorage بـ IndexedDB هنا إذا لزم الأمر
-        localStorage.setItem('englishLearningTasks', JSON.stringify(tasksData));
-        console.log('تم حفظ المهام لكل يوم:', tasksData);
-    }
-
-    function loadTasksState() {
-        const savedTasks = localStorage.getItem('englishLearningTasks');
-        if (savedTasks) {
-            const tasksData = JSON.parse(savedTasks);
-            const allTaskRows = document.querySelectorAll('.task-row'); // تأكد من أن كل صف يمثل يومًا ولديه الكلاس 'task-row'
-
-            allTaskRows.forEach(row => {
-                const dayId = row.dataset.day;
-                const dayTasks = tasksData[dayId];
-
-                if (dayTasks) {
-                    const { tasks, completedCount } = dayTasks;
-                    const taskCells = row.querySelectorAll('.task-cell');
-                    tasks.forEach((state, index) => {
-                        if (index < taskCells.length) {
-                            const task = taskCells[index];
-                            task.querySelector('.task-text').textContent = state.text;
-                            task.querySelector('.checkbox').checked = state.completed;
-                            updateTaskAppearance(task, state.completed);
-                        }
-                    });
-
-                    const statusCell = row.querySelector('.status-cell');
-                    if (completedCount === 3) {
-                        statusCell.textContent = '✅ مكتملة';
-                    } else {
-                        statusCell.textContent = '🔄 قيد التنفيذ';
+            if (dayTasks) {
+                const { tasks, completedCount } = dayTasks;
+                const taskCells = row.querySelectorAll('.task-cell');
+                tasks.forEach((state, index) => {
+                    if (index < taskCells.length) {
+                        const task = taskCells[index];
+                        task.querySelector('.task-text').textContent = state.text;
+                        task.querySelector('.checkbox').checked = state.completed;
+                        updateTaskAppearance(task, state.completed);
                     }
-                }
-            });
+                });
 
-            console.log('تم تحميل المهام لكل يوم:', tasksData);
-        }
-        updateProgress();
-    }
-
-    function updateTaskAppearance(taskCell, isCompleted) {
-        const taskText = taskCell.querySelector('.task-text');
-        if (isCompleted) {
-            taskCell.classList.add('completed');
-            taskText.style.textDecoration = 'line-through';
-        } else {
-            taskCell.classList.remove('completed');
-            taskText.style.textDecoration = 'none';
-        }
-    }
-
-    const DAYS = {
-        'saturday': 'السبت',
-        'sunday': 'الأحد',
-        'monday': 'الإثنين',
-        'tuesday': 'الثلاثاء',
-        'wednesday': 'الأربعاء',
-        'thursday': 'الخميس',
-        'friday': 'الجمعة'
-    };
-
-    function showLinkInput(btn) {
-        const cell = btn.closest('.links-cell');
-        const inputContainer = cell.querySelector('.link-input-container');
-        const input = cell.querySelector('.link-input');
-
-        btn.style.display = 'none';
-        inputContainer.style.display = 'flex';
-
-        setTimeout(() => {
-            inputContainer.style.opacity = '1';
-            input.focus();
-        }, 10);
-    }
-
-    function saveLink(btn) {
-        const cell = btn.closest('.links-cell');
-        const dayId = cell.dataset.day;
-        const input = cell.querySelector('.link-input');
-        const link = input.value.trim();
-
-        if (link) {
-            const linkDisplay = cell.querySelector('.link-display');
-            const linkText = linkDisplay.querySelector('.link-text');
-
-            // تعديل لعرض "اضغط هنا" باللون الأزرق والخط السميك
-            linkText.href = link.startsWith('http') ? link : 'https://' + link;
-            linkText.textContent = 'اضغط هنا'; // النص المعروض سيكون "اضغط هنا"
-            linkText.style.color = 'blue'; // تغيير اللون إلى الأزرق
-            linkText.style.fontWeight = 'bold'; // تغيير الخط ليكون سميكاً
-
-            const inputContainer = cell.querySelector('.link-input-container');
-            inputContainer.style.opacity = '0';
-
-            setTimeout(() => {
-                inputContainer.style.display = 'none';
-                linkDisplay.style.display = 'flex';
-            }, 300);
-
-            saveLinkForDay(dayId, link);
-        } else {
-            cell.querySelector('.add-link-btn').style.display = 'block';
-            cell.querySelector('.link-input-container').style.display = 'none';
-        }
-    }
-
-    function editLink(btn) {
-        const cell = btn.closest('.links-cell');
-        const linkDisplay = cell.querySelector('.link-display');
-        const inputContainer = cell.querySelector('.link-input-container');
-        const input = cell.querySelector('.link-input');
-        const linkText = cell.querySelector('.link-text');
-
-        input.value = linkText.textContent;
-        linkDisplay.style.display = 'none';
-        inputContainer.style.display = 'flex';
-
-        setTimeout(() => {
-            inputContainer.style.opacity = '1';
-            input.focus();
-        }, 10);
-    }
-
-    function saveLinkForDay(dayId, link) {
-        if (typeof(Storage) !== "undefined") {
-            if (link) {
-                const links = JSON.parse(localStorage.getItem('dayLinks') || '{}');
-                links[dayId] = link;
-                localStorage.setItem('dayLinks', JSON.stringify(links));
-
-                console.log(`تم حفظ الرابط لليوم: ${dayId} - ${link}`);
-            }
-        } else {
-            console.error('Local Storage غير مدعوم في هذا المتصفح');
-        }
-    }
-
-    function loadSavedLinks() {
-        const links = JSON.parse(localStorage.getItem('dayLinks') || '{}');
-
-        document.querySelectorAll('.links-cell').forEach(cell => {
-            const dayId = cell.dataset.day;
-            const savedLink = links[dayId];
-
-            if (savedLink) {
-                const linkText = cell.querySelector('.link-text');
-                const addBtn = cell.querySelector('.add-link-btn');
-                const linkDisplay = cell.querySelector('.link-display');
-
-                linkText.href = savedLink.startsWith('http') ? savedLink : 'https://' + savedLink;
-                linkText.textContent = 'اضغط هنا'; // تعديل النص إلى "اضغط هنا"
-                linkText.style.color = 'blue';
-                linkText.style.fontWeight = 'bold';
-
-                addBtn.style.display = 'none';
-                linkDisplay.style.display = 'flex';
+                const statusCell = row.querySelector('.status-cell');
+                statusCell.textContent = completedCount === 3 ? '✅ مكتملة' : '🔄 قيد التنفيذ';
             }
         });
 
-        console.log('تم استرجاع الروابط المحفوظة.');
+        console.log('تم تحميل المهام لكل يوم:', tasksData);
     }
+    updateProgress();
+}
 
-    window.addEventListener('load', () => {
-        loadTasksState();
-        loadSavedLinks();
+// Updates the task appearance based on completion state
+function updateTaskAppearance(taskCell, isCompleted) {
+    const taskText = taskCell.querySelector('.task-text');
+    if (isCompleted) {
+        taskCell.classList.add('completed');
+        taskText.style.textDecoration = 'line-through';
+    } else {
+        taskCell.classList.remove('completed');
+        taskText.style.textDecoration = 'none';
+    }
+}
+
+// Shows input for adding a link for a task day
+function showLinkInput(btn) {
+    const cell = btn.closest('.links-cell');
+    const inputContainer = cell.querySelector('.link-input-container');
+    const input = cell.querySelector('.link-input');
+
+    btn.style.display = 'none';
+    inputContainer.style.display = 'flex';
+
+    setTimeout(() => {
+        inputContainer.style.opacity = '1';
+        input.focus();
+    }, 10);
+}
+
+// Saves the link entered for a task day
+function saveLink(btn) {
+    const cell = btn.closest('.links-cell');
+    const dayId = cell.dataset.day;
+    const input = cell.querySelector('.link-input');
+    const link = input.value.trim();
+
+    if (link) {
+        const linkDisplay = cell.querySelector('.link-display');
+        const linkText = linkDisplay.querySelector('.link-text');
+
+        linkText.href = link.startsWith('http') ? link : 'https://' + link;
+        linkText.textContent = 'اضغط هنا';
+        linkText.style.color = 'blue';
+        linkText.style.fontWeight = 'bold';
+
+        const inputContainer = cell.querySelector('.link-input-container');
+        inputContainer.style.opacity = '0';
+
+        setTimeout(() => {
+            inputContainer.style.display = 'none';
+            linkDisplay.style.display = 'flex';
+        }, 300);
+
+        saveLinkForDay(dayId, link);
+    } else {
+        cell.querySelector('.add-link-btn').style.display = 'block';
+        cell.querySelector('.link-input-container').style.display = 'none';
+    }
+}
+
+// Allows editing of an existing link
+function editLink(btn) {
+    const cell = btn.closest('.links-cell');
+    const linkDisplay = cell.querySelector('.link-display');
+    const inputContainer = cell.querySelector('.link-input-container');
+    const input = cell.querySelector('.link-input');
+    const linkText = cell.querySelector('.link-text');
+
+    input.value = linkText.href;
+    linkDisplay.style.display = 'none';
+    inputContainer.style.display = 'flex';
+
+    setTimeout(() => {
+        inputContainer.style.opacity = '1';
+        input.focus();
+    }, 10);
+}
+
+// Saves the link for a specific day in localStorage
+function saveLinkForDay(dayId, link) {
+    if (typeof(Storage) !== "undefined") {
+        if (link) {
+            const links = JSON.parse(localStorage.getItem('dayLinks') || '{}');
+            links[dayId] = link;
+            localStorage.setItem('dayLinks', JSON.stringify(links));
+
+            console.log(`تم حفظ الرابط لليوم: ${dayId} - ${link}`);
+        }
+    } else {
+        console.error('Local Storage غير مدعوم في هذا المتصفح');
+    }
+}
+
+// Loads saved links for each day from localStorage
+function loadSavedLinks() {
+    const links = JSON.parse(localStorage.getItem('dayLinks') || '{}');
+
+    document.querySelectorAll('.links-cell').forEach(cell => {
+        const dayId = cell.dataset.day;
+        const savedLink = links[dayId];
+
+        if (savedLink) {
+            const linkText = cell.querySelector('.link-text');
+            const addBtn = cell.querySelector('.add-link-btn');
+            const linkDisplay = cell.querySelector('.link-display');
+
+            linkText.href = savedLink.startsWith('http') ? savedLink : 'https://' + savedLink;
+            linkText.textContent = 'اضغط هنا';
+            linkText.style.color = 'blue';
+            linkText.style.fontWeight = 'bold';
+
+            addBtn.style.display = 'none';
+            linkDisplay.style.display = 'flex';
+        }
     });
-</script>
 
+    console.log('تم استرجاع الروابط المحفوظة.');
+}
+
+// Event listeners to load task and link data on window load
+window.addEventListener('load', () => {
+    loadTasksState();
+    loadSavedLinks();
+});
+
+</script>
 </body>
 </html>
