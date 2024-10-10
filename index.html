@@ -1,844 +1,915 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html lang="ar" dir="rtl">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جدول المهام الأسبوعي لتعلم اللغة الإنجليزية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        /* Importing Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
-
-/* Global Styles */
-body {
-    font-family: 'Cairo', sans-serif;
-    margin: 20px;
-    background: linear-gradient(135deg, #f6f8ff 0%, #e9f0ff 100%);
-    font-size: 16px;
-    animation: fadeIn 1s ease-in-out;
-    transition: all 0.3s ease;
-    color: #2D3250;
-}
-
-/* Animation Definitions */
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-@keyframes bounceIn {
-    0% { transform: scale(0.9); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes bounceCompleted {
-    0% { transform: scale(0.9); }
-    100% { transform: scale(1); }
-}
-
-@keyframes fadeInUp {
-    0% { transform: translateY(20px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-
-/* Container Styles */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Headings */
-h2 {
-    color: #2D3250;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 36px;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    animation: bounceIn 0.8s ease-in-out;
-}
-
-/* Table Styles */
-table {
-    width: 100%;
-    border-collapse: collapse; /* Better collapse for tables */
-    margin-bottom: 20px;
-}
-
-th {
-    background: linear-gradient(135deg, #424874 0%, #2D3250 100%);
-    color: white;
-    font-weight: 600;
-    font-size: 20px;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-td {
-    padding: 10px;
-    text-align: center;
-}
-
-/* Day Cell Styles */
-.day-cell {
-    font-size: 22px;
-    font-weight: 700;
-    border-radius: 12px;
-    min-width: 150px;
-    padding: 15px;
-    color: white;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.day-cell:nth-child(odd) {
-    background: linear-gradient(135deg, #F4B860 0%, #F4A460 100%);
-}
-
-.day-cell:nth-child(even) {
-    background: linear-gradient(135deg, #FF9A8B 0%, #FF8E9E 100%);
-}
-
-.day-cell:hover, .day-cell:focus {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
-    outline: none; /* For accessibility */
-}
-
-/* Task Cell Styles */
-.task-cell {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.task-cell:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-.task-cell.completed {
-    background-color: #d4edda;
-    animation: bounceCompleted 0.6s ease;
-}
-
-/* Checkbox Styles */
-.checkbox-wrapper {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.checkbox {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    accent-color: #4CAF50;
-}
-
-/* Task Text */
-.task-text {
-    font-size: 18px;
-    color: #2D3250;
-    flex-grow: 1;
-    margin: 0 15px;
-}
-
-/* Button Styles */
-button {
-    border: none;
-    border-radius: 8px;
-    padding: 12px 25px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.edit-btn, .save-btn, .add-link-btn {
-    background: linear-gradient(135deg, #7A86B6 0%, #6870A4 100%);
-}
-
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(122, 134, 182, 0.4);
-}
-
-/* Status Cell */
-.status-cell {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 600;
-    color: #2D3250;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Progress Bar Styles */
-.progress-container {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    animation: fadeInUp 1.2s ease-in-out;
-}
-
-.progress-title {
-    font-size: 20px;
-    font-weight: 600;
-    color: #2D3250;
-    margin-bottom: 10px;
-}
-
-.progress-bar {
-    height: 20px;
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-}
-
-.progress {
-    height: 100%;
-    width: 0%; /* Initially set to 0 */
-    background: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%);
-    border-radius: 10px;
-    transition: width 0.5s ease, background-color 0.5s ease; /* Smooth transition */
-    position: relative;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-}
-
-.progress:hover::after {
-    content: attr(data-progress) '%'; /* Tooltip on hover */
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #333;
-    color: white;
-    padding: 5px;
-    border-radius: 4px;
-    font-size: 14px;
-    white-space: nowrap;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-/* For smaller screens */
-@media (max-width: 768px) {
-    .progress-container {
-        padding: 15px;
-    }
-    .progress-bar {
-        height: 15px;
-    }
-    .progress-title {
-        font-size: 18px;
-    }
-}
-
-/* Link Input Styles */
-.link-input-container, .link-display {
-    display: none;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 15px;
-    opacity: 0;
-    transition: all 0.3s ease;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.link-input-container.visible {
-    display: flex;
-    opacity: 1;
-}
-
-.link-input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #7A86B6;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-.link-input:focus {
-    border-color: #4CAF50;
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
-    outline: none;
-}
-
-.link-text {
-    color: #4285f4;
-    font-weight: 700;
-    font-size: 18px;
-    text-decoration: none;
-    word-break: break-all;
-    padding: 10px;
-    border-radius: 8px;
-    background: rgba(66, 133, 244, 0.1);
-}
-
-.link-text:hover {
-    background: rgba(66, 133, 244, 0.2);
-    transform: translateY(-2px);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    body {
-        font-size: 14px;
-        margin: 10px;
-    }
-
-    h2 {
-        font-size: 28px;
-    }
-
-    .task-cell, .status-cell, .links-cell {
-        flex-direction: column;
-        padding: 15px;
-    }
-
-    table, th, td {
-        font-size: 14px;
-    }
-}
-
+        :root {
+            --primary: #3B82F6;
+            --primary-foreground: #FFFFFF;
+            --secondary: #8B5CF6;
+            --muted: #F3F4F6;
+            --muted-foreground: #6B7280;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(to bottom right, #EBF5FF, #F3E8FF);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        .container {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #1E3A8A;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .days-container {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .days-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .day-button {
+            flex-shrink: 0;
+            padding: 0.75rem 1.5rem;
+            margin-right: 0.75rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+        
+        .day-button.active {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: var(--primary-foreground);
+        }
+        
+        .day-button:not(.active) {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .day-button:not(.active):hover {
+            background-color: var(--muted);
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #1E40AF;
+        }
+        
+        .progress-section {
+            background-color: #EBF8FF;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .progress-bar {
+            height: 0.75rem;
+            background-color: #E5E7EB;
+            border-radius: 9999px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, #10B981, #34D399);
+            transition: width 0.5s ease-out;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: bold;
+            color: #065F46;
+        }
+        
+        .tasks-section {
+            background-color: #F3E8FF;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .task-item {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .task-item:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .task-category {
+            font-weight: bold;
+            font-size: 0.875rem;
+            color: #5B21B6;
+            margin-bottom: 0.25rem;
+        }
+        
+        .task-text {
+            font-size: 0.875rem;
+            color: #1E3A8A;
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .task-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .task-status-text {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+        }
+        
+        .task-checkbox {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #D1D5DB;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .task-checkbox.completed {
+            background-color: #10B981;
+            border-color: #10B981;
+        }
+        
+        .task-checkbox i {
+            color: white;
+            font-size: 0.75rem;
+            display: none;
+        }
+        
+        .task-checkbox.completed i {
+            display: block;
+        }
+        
+        .add-task-button {
+            background: linear-gradient(to right, #9333EA, #EC4899);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .add-task-button:hover {
+            background: linear-gradient(to right, #7C3AED, #DB2777);
+        }
+        
+        .links-section {
+            background-color: #FCE7F3;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .add-link-button {
+            background: linear-gradient(to right, #EC4899, #EF4444);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-link-button:hover {
+            background: linear-gradient(to right, #DB2777, #DC2626);
+        }
+        
+        .link-input-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1rem;
+        }
+        
+        .link-input {
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #F9A8D4;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .save-link-button {
+            background: linear-gradient(to right, #EC4899, #EF4444);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .save-link-button:hover {
+            background: linear-gradient(to right, #DB2777, #DC2626);
+        }
+        
+        .link-buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .link-button {
+            flex-grow: 1;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+        }
+        
+        .open-link-button {
+            background: linear-gradient(to right, #3B82F6, #2563EB);
+            color: white;
+        }
+        
+        .open-link-button:hover {
+            background: linear-gradient(to right, #2563EB, #1D4ED8);
+        }
+        
+        .edit-link-button {
+            background: linear-gradient(to right, #F59E0B, #D97706);
+            color: white;
+        }
+        
+        .edit-link-button:hover {
+            background: linear-gradient(to right, #D97706, #B45309);
+        }
+        
+        .delete-link-button {
+            background: linear-gradient(to right, #EF4444, #DC2626);
+            color: white;
+        }
+        
+        .delete-link-button:hover {
+            background: linear-gradient(to right, #DC2626, #B91C1C);
+        }
+        
+        .statistics-section {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .statistics-section:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .statistics-title {
+            font-size: 1.125rem;
+            font-weight: bold;
+            color: #1E40AF;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .statistics-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .statistics-content.show {
+            max-height: 1000px;
+            transition: max-height 0.5s ease-in;
+        }
+        
+        .weekly-progress {
+            margin-bottom: 1rem;
+        }
+        
+        .weekly-progress h3 {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #1E40AF;
+            margin-bottom: 0.5rem;
+        }
+        
+        .daily-statistics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
+        }
+        
+        .daily-stat-item {
+            background-color: #F3F4F6;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        
+        .daily-stat-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .daily-stat-item h4 {
+            font-size: 0.875rem;
+            font-weight: bold;
+            color: #1E40AF;
+            margin-bottom: 0.5rem;
+        }
+        
+        .admin-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-button:hover {
+            background-color: #2563EB;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .task-edit-input {
+            width: 100%;
+            padding: 0.25rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 640px) {
+            .tasks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .link-buttons-container {
+                flex-direction: column;
+            }
+            
+            .link-button {
+                width: 100%;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromRight {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromTop {
+            from { transform:  translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .slide-in-left {
+            animation: slideInFromLeft 0.3s ease-out;
+        }
+        
+        .slide-in-right {
+            animation: slideInFromRight 0.3s ease-out;
+        }
+        
+        .slide-in-top {
+            animation: slideInFromTop 0.3s ease-out;
+        }
+        
+        .content-transition {
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+        
+        .content-transition.hide {
+            opacity: 0;
+            transform: translateY(20px);
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>جدول المهام الأسبوعي لتعلم اللغة الإنجليزية 🎯</h2>
+        <h1 class="fade-in">
+            جدول المهام الأسبوعي لتعلم اللغة الإنجليزية
+            <i class="fas fa-calendar-alt"></i>
+        </h1>
         
-        <!-- Progress Bar Section -->    <div class="progress-container">
-        <div class="progress-title">تقدم الأسبوع</div>
-        <div class="progress-bar">
-            <div class="progress" id="progressBar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+        <div class="days-container slide-in-left" id="daysContainer"></div>
+        
+        <div class="content-card content-transition" id="contentCard">
+            <h2 class="section-title" id="activeDay"></h2>
+            
+            <div class="progress-section slide-in-left">
+                <h3 class="section-title">
+                    تقدم اليوم
+                    <i class="fas fa-chart-line"></i>
+                </h3>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="dailyProgressBar"></div>
+                </div>
+                <div class="progress-text" id="dailyProgressText"></div>
+            </div>
+            
+            <div class="tasks-section slide-in-right">
+                <h3 class="section-title">
+                    المهام
+                    <i class="fas fa-tasks"></i>
+                </h3>
+                <div class="tasks-grid" id="tasksGrid"></div>
+                <button class="add-task-button hidden" id="addTaskButton">
+                    إضافة مهمة جديدة
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <div class="links-section slide-in-left">
+                <h3 class="section-title">
+                    الروابط
+                    <i class="fas fa-link"></i>
+                </h3>
+                <button class="add-link-button hidden" id="addLinkButton">
+                    إضافة رابط
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="link-input-container hidden" id="linkInputContainer">
+                    <input type="text" class="link-input" id="linkInput" placeholder="أدخل الرابط هنا...">
+                    <button class="save-link-button" id="saveLinkButton">
+                        حفظ
+                        <i class="fas fa-save"></i>
+                    </button>
+                </div>
+                <div class="link-buttons-container" id="linkButtonsContainer"></div>
+            </div>
+            
+            <div class="statistics-section slide-in-right">
+                <h2 class="statistics-title" id="statisticsTitle">
+                    الإحصائيات
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="ml-2">▼</span>
+                </h2>
+                <div class="statistics-content" id="statisticsContent">
+                    <div class="weekly-progress">
+                        <h3>التقدم الأسبوعي</h3>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" id="weeklyProgressBar"></div>
+                        </div>
+                        <div class="progress-text" id="weeklyProgressText"></div>
+                    </div>
+                    <div class="daily-statistics" id="dailyStatistics"></div>
+                </div>
+            </div>
         </div>
-        </div>
-
-        <!-- Task Table -->
-        <table>
-            <tr>
-                <th>اليوم 📅</th>
-                <th>المهام 📝</th>
-                <th>الحالة ✔️</th>
-                <th>الروابط 🔗</th>
-            </tr>
-
-            <!-- Loop through days -->
-            <!-- السبت -->
-            <tr class="task-row" data-day="saturday">
-                <td class="day-cell">السبت 🌅</td>
-                <td>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">تعلم 10 كلمات جديدة 📚</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">مراجعة قاعدة النحو 📝</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">مشاهدة فيديو تعليمي 🎥</span>
-                        </div>
-                    </div>
-                </td>
-                <td class="status-cell">🔄 قيد التنفيذ</td>
-                <td class="links-cell" data-day="saturday">
-                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-                    <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
-                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-                    </div>
-                    <div class="link-display">
-                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- الأحد -->
-            <tr class="task-row" data-day="sunday">
-                <td class="day-cell">الأحد ☀️</td>
-                <td>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">قراءة 20 صفحة من كتاب 📖</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">كتابة ملخص عن المقالات ✍️</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">ممارسة التحدث مع شخص آخر 💬</span>
-                        </div>
-                    </div>
-                </td>
-                <td class="status-cell">🔄 قيد التنفيذ</td>
-                <td class="links-cell" data-day="sunday">
-                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-                    <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
-                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-                    </div>
-                    <div class="link-display">
-                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- الإثنين -->
-            <tr class="task-row" data-day="monday">
-                <td class="day-cell">الإثنين 📅</td>
-                <td>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">ممارسة المحادثة مع صديق 💬</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">تدريب على النطق 📣</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">كتابة نص قصير باللغة الإنجليزية ✍️</span>
-                        </div>
-                    </div>
-                </td>
-                <td class="status-cell">🔄 قيد التنفيذ</td>
-                <td class="links-cell" data-day="monday">
-                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-                    <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
-                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-                    </div>
-                    <div class="link-display">
-                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- الثلاثاء -->
-            <tr class="task-row" data-day="tuesday">
-                <td class="day-cell">الثلاثاء 🌈</td>
-                <td>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">حضور دورة تدريبية عبر الإنترنت 📅</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">الاستماع إلى البودكاست 🎧</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">ممارسة الكتابة في المدونة الخاصة بك 💻</span>
-                        </div>
-                    </div>
-                </td>
-                <td class="status-cell">🔄 قيد التنفيذ</td>
-                <td class="links-cell" data-day="tuesday">
-                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-                    <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
-                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-                    </div>
-                    <div class="link-display">
-                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- الأربعاء -->
-            <tr class="task-row" data-day="wednesday">
-                <td class="day-cell">الأربعاء 🌞</td>
-                <td>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">تعلم قواعد جديدة 📖</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">مشاهدة الأفلام باللغة الإنجليزية 🎬</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">تدوين الملاحظات حول الدروس 📝</span>
-                        </div>
-                    </div>
-                </td>
-                <td class="status-cell">🔄 قيد التنفيذ</td>
-                <td class="links-cell" data-day="wednesday">
-                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-                    <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
-                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-                    </div>
-                    <div class="link-display">
-                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- الخميس -->
-            <tr class="task-row" data-day="thursday">
-                <td class="day-cell">الخميس 🌟</td>
-                <td>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">تحضير لامتحان المحادثة 📖</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">التواصل مع أصدقاء اللغة 🎓</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">قراءة الأخبار باللغة الإنجليزية 📰</span>
-                        </div>
-                    </div>
-                </td>
-                <td class="status-cell">🔄 قيد التنفيذ</td>
-                <td class="links-cell" data-day="thursday">
-                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-                    <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
-                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-                    </div>
-                    <div class="link-display">
-                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- الجمعة -->
-            <tr class="task-row" data-day="friday">
-                <td class="day-cell">الجمعة 🌤️</td>
-                <td>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">تعلم 5 تعابير جديدة 😄</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">مراجعة الدروس السابقة 📚</span>
-                        </div>
-                    </div>
-                    <div class="task-cell">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" class="checkbox" onchange="toggleTask(this)">
-                            <span class="task-text">كتابة تقرير عن الأسبوع 📝</span>
-                        </div>
-                    </div>
-                </td>
-                <td class="status-cell">🔄 قيد التنفيذ</td>
-                <td class="links-cell" data-day="friday">
-                    <button class="add-link-btn" onclick="showLinkInput(this)">إضافة رابط</button>
-                    <div class="link-input-container">
-                        <input type="text" class="link-input" placeholder="أدخل الرابط هنا...">
-                        <button class="save-btn" onclick="saveLink(this)">حفظ</button>
-                    </div>
-                    <div class="link-display">
-                        <a href="#" class="link-text" target="_blank">اضغط هنا</a>
-                        <button class="edit-btn" onclick="editLink(this)">تغيير</button>
-                    </div>
-                </td>
-            </tr>
-        </table>
     </div>
+    
+    <button class="admin-button hidden" id="adminButton">
+        مشرف
+        <i class="fas fa-user-cog"></i>
+    </button>
 
-  <script>
-    // Toggles task completion, updates the appearance, progress, and saves the state
-function toggleTask(checkbox) {
-    const taskCell = checkbox.closest('.task-cell');
-    const row = checkbox.closest('.task-row');
-    const statusCell = row.querySelector('.status-cell');
-    const allCheckboxes = row.querySelectorAll('.checkbox');
-    const completedCount = Array.from(allCheckboxes).filter(cb => cb.checked).length;
+    <script>
+        const days = ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
+        const dayEmojis = ['🌅', '☀️', '🌙', '🌟', '🌈', '🌞', '🕌'];
+        const taskColors = [
+            { light: '#DBEAFE', dark: '#93C5FD' },
+            { light: '#D1FAE5', dark: '#6EE7B7' },
+            { light: '#FEF3C7', dark: '#FCD34D' },
+            { light: '#F3E8FF', dark: '#C084FC' },
+            { light: '#FCE7F3', dark: '#F9A8D4' },
+            { light: '#E0E7FF', dark: '#A5B4FC' },
+            { light: '#FEE2E2', dark: '#FCA5A5' },
+        ];
 
-    updateTaskAppearance(taskCell, checkbox.checked);
-    updateProgress();
-    saveTasksState();
+        let tasksData = {};
+        let activeDay = days[0];
+        let isAdmin = false;
+        let editingTask = null;
 
-    statusCell.textContent = completedCount === 3 ? '✅ مكتملة' : '🔄 قيد التنفيذ';
-}
+        // DOM Elements
+        const daysContainer = document.getElementById('daysContainer');
+        const contentCard = document.getElementById('contentCard');
+        const activeDayElement = document.getElementById('activeDay');
+        const dailyProgressBar = document.getElementById('dailyProgressBar');
+        const dailyProgressText = document.getElementById('dailyProgressText');
+        const tasksGrid = document.getElementById('tasksGrid');
+        const addTaskButton = document.getElementById('addTaskButton');
+        const addLinkButton = document.getElementById('addLinkButton');
+        const linkInputContainer = document.getElementById('linkInputContainer');
+        const linkInput = document.getElementById('linkInput');
+        const saveLinkButton = document.getElementById('saveLinkButton');
+        const linkButtonsContainer = document.getElementById('linkButtonsContainer');
+        const statisticsTitle = document.getElementById('statisticsTitle');
+        const statisticsContent = document.getElementById('statisticsContent');
+        const weeklyProgressBar = document.getElementById('weeklyProgressBar');
+        const weeklyProgressText = document.getElementById('weeklyProgressText');
+        const dailyStatistics = document.getElementById('dailyStatistics');
+        const adminButton = document.getElementById('adminButton');
 
-// Allows editing the task text, updates progress and saves the new state
-function editTask(button) {
-    const taskCell = button.closest('.task-cell');
-    const editInput = taskCell.querySelector('.edit-input');
-    const taskText = taskCell.querySelector('.task-text');
+        // Initialize
+        function init() {
+            loadTasksData();
+            renderDays();
+            renderContent();
+            updateStatistics();
+        }
 
-    if (editInput.style.display === "none" || editInput.style.display === "") {
-        editInput.style.display = "block";
-        editInput.value = taskText.textContent;
-        button.textContent = "حفظ";
-    } else {
-        taskText.textContent = editInput.value;
-        editInput.style.display = "none";
-        button.textContent = "تعديل";
-        updateTaskAppearance(taskCell, taskCell.querySelector('.checkbox').checked);
-        updateProgress();
-        saveTasksState();
-    }
-}
+        // Load tasks data from localStorage
+        function loadTasksData() {
+            const savedTasks = localStorage.getItem('englishLearningTasks');
+            if (savedTasks) {
+                try {
+                    tasksData = JSON.parse(savedTasks);
+                } catch (error) {
+                    console.error('Error parsing saved tasks:', error);
+                    initializeDefaultTasks();
+                }
+            } else {
+                initializeDefaultTasks();
+            }
+        }
 
-// Updates the progress bar based on completed tasks
-function updateProgress() {
-    const progressBar = document.getElementById('progressBar');
-    const checkboxes = document.querySelectorAll('.checkbox');
-    const completedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-    const totalCount = checkboxes.length;
-    const progressPercentage = totalCount === 0 ? 0 : (completedCount / totalCount) * 100;
+        // Initialize default tasks
+        function initializeDefaultTasks() {
+            days.forEach((day, index) => {
+                tasksData[day] = {
+                    tasks: [
+                        { id: `task-${day}-0`, category: 'مهمة جديدة', text: 'أضف مهمة جديدة', completed: false }
+                    ],
+                    link: '',
+                    emoji: dayEmojis[index]
+                };
+            });
+            saveTasksData();
+        }
 
-    // Smooth transition and updating the width
-    progressBar.style.width = progressPercentage + '%';
-    progressBar.textContent = `${Math.round(progressPercentage)}%`;
+        // Save tasks data to localStorage
+        function saveTasksData() {
+            localStorage.setItem('englishLearningTasks', JSON.stringify(tasksData));
+        }
 
-    // Update data attribute for hover tooltip
-    progressBar.setAttribute('data-progress', Math.round(progressPercentage));
+        // Render days
+        function renderDays() {
+            daysContainer.innerHTML = '';
+            days.forEach((day, index) => {
+                const dayButton = document.createElement('button');
+                dayButton.className = `day-button ${day === activeDay ? 'active' : ''}`;
+                dayButton.textContent = `${day} ${tasksData[day]?.emoji || ''}`;
+                dayButton.onclick = () => setActiveDay(day);
+                daysContainer.appendChild(dayButton);
+            });
+        }
 
-    // Dynamically change color based on percentage
-    if (progressPercentage <= 33) {
-        progressBar.style.background = 'linear-gradient(135deg, #ff4e50 0%, #ff6347 100%)'; // Red tones for low progress
-    } else if (progressPercentage <= 66) {
-        progressBar.style.background = 'linear-gradient(135deg, #f9d423 0%, #f6e58d 100%)'; // Yellow tones for mid progress
-    } else {
-        progressBar.style.background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)'; // Green tones for high progress
-    }
-}
+        // Set active day
+        function setActiveDay(day) {
+            if (day !== activeDay) {
+                contentCard.classList.add('hide');
+                setTimeout(() => {
+                    activeDay = day;
+                    renderDays();
+                    renderContent();
+                    contentCard.classList.remove('hide');
+                }, 300);
+            }
+        }
 
+        // Render content
+        function renderContent() {
+            activeDayElement.textContent = activeDay;
+            renderTasks();
+            renderDailyProgress();
+            renderLink();
+            updateStatistics();
+        }
 
-// Saves the state of tasks in localStorage
-function saveTasksState() {
-    const allTaskRows = document.querySelectorAll('.task-row');
-    const tasksData = {};
-
-    allTaskRows.forEach(row => {
-        const dayId = row.dataset.day;
-        const tasks = row.querySelectorAll('.task-cell');
-        const tasksState = Array.from(tasks).map(task => ({
-            text: task.querySelector('.task-text').textContent,
-            completed: task.querySelector('.checkbox').checked
-        }));
-        const completedCount = tasksState.filter(task => task.completed).length;
-
-        tasksData[dayId] = { tasks: tasksState, completedCount };
-    });
-
-    localStorage.setItem('englishLearningTasks', JSON.stringify(tasksData));
-    console.log('تم حفظ المهام لكل يوم:', tasksData);
-}
-
-// Loads the tasks state from localStorage and applies it
-function loadTasksState() {
-    const savedTasks = localStorage.getItem('englishLearningTasks');
-    if (savedTasks) {
-        const tasksData = JSON.parse(savedTasks);
-        const allTaskRows = document.querySelectorAll('.task-row');
-
-        allTaskRows.forEach(row => {
-            const dayId = row.dataset.day;
-            const dayTasks = tasksData[dayId];
-
-            if (dayTasks) {
-                const { tasks, completedCount } = dayTasks;
-                const taskCells = row.querySelectorAll('.task-cell');
-                tasks.forEach((state, index) => {
-                    if (index < taskCells.length) {
-                        const task = taskCells[index];
-                        task.querySelector('.task-text').textContent = state.text;
-                        task.querySelector('.checkbox').checked = state.completed;
-                        updateTaskAppearance(task, state.completed);
+        // Render tasks
+        function renderTasks() {
+            tasksGrid.innerHTML = '';
+            tasksData[activeDay]?.tasks.forEach((task, index) => {
+                const taskElement = document.createElement('div');
+                taskElement.className = `task-item`;
+                taskElement.style.backgroundColor = task.completed ? taskColors[index % taskColors.length].dark : taskColors[index % taskColors.length].light;
+                
+                if (editingTask && editingTask.day === activeDay && editingTask.index === index) {
+                    taskElement.innerHTML = `
+                        <input type="text" class="task-edit-input" value="${task.category}" data-field="category">
+                        <input type="text" class="task-edit-input" value="${task.text}" data-field="text">
+                        <div class="task-status">
+                            <button class="save-task-button">حفظ</button>
+                        </div>
+                    `;
+                    
+                    const saveButton = taskElement.querySelector('.save-task-button');
+                    saveButton.addEventListener('click', () => saveTaskEdit(index));
+                    
+                    const inputs = taskElement.querySelectorAll('.task-edit-input');
+                    inputs.forEach(input => {
+                        input.addEventListener('keypress', (e) => {
+                            if (e.key === 'Enter') {
+                                saveTaskEdit(index);
+                            }
+                        });
+                    });
+                } else {
+                    taskElement.innerHTML = `
+                        <div class="task-category">${task.category}</div>
+                        <div class="task-text">${task.text}</div>
+                        <div class="task-status">
+                            <span class="task-status-text">${task.completed ? 'مكتملة' : 'غير مكتملة'}</span>
+                            <div class="task-checkbox ${task.completed ? 'completed' : ''}" onclick="toggleTask(${index})">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                    `;
+                    
+                    if (isAdmin) {
+                        taskElement.addEventListener('click', (e) => {
+                            if (!e.target.closest('.task-checkbox')) {
+                                editTask(index);
+                            }
+                        });
                     }
-                });
+                }
+                
+                tasksGrid.appendChild(taskElement);
+            });
+            addTaskButton.classList.toggle('hidden', !isAdmin);
+        }
 
-                const statusCell = row.querySelector('.status-cell');
-                statusCell.textContent = completedCount === 3 ? '✅ مكتملة' : '🔄 قيد التنفيذ';
+        // Toggle task completion
+        function toggleTask(index) {
+            tasksData[activeDay].tasks[index].completed = !tasksData[activeDay].tasks[index].completed;
+            saveTasksData();
+            renderTasks();
+            renderDailyProgress();
+            updateStatistics();
+            if (tasksData[activeDay].tasks[index].completed) {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
+        // Edit task
+        function editTask(index) {
+            editingTask = { day: activeDay, index: index };
+            renderTasks();
+        }
+
+        // Save task edit
+        function saveTaskEdit(index) {
+            const categoryInput = document.querySelector(`.task-edit-input[data-field="category"]`);
+            const textInput = document.querySelector(`.task-edit-input[data-field="text"]`);
+            
+            tasksData[activeDay].tasks[index].category = categoryInput.value;
+            tasksData[activeDay].tasks[index].text = textInput.value;
+            
+            editingTask = null;
+            saveTasksData();
+            renderTasks();
+        }
+
+        // Render daily progress
+        function renderDailyProgress() {
+            const progress = calculateDailyProgress(activeDay);
+            dailyProgressBar.style.width = `${progress}%`;
+            dailyProgressText.textContent = `${progress}%`;
+        }
+
+        // Calculate daily progress
+        function calculateDailyProgress(day) {
+            const tasks = tasksData[day]?.tasks || [];
+            const completedTasks = tasks.filter(task => task.completed).length;
+            return tasks.length > 0 ? Math.round((completedTasks / tasks.length) * 100) : 0;
+        }
+
+        // Render link
+        function renderLink() {
+            linkButtonsContainer.innerHTML = '';
+            addLinkButton.classList.toggle('hidden', !isAdmin || tasksData[activeDay]?.link);
+            linkInputContainer.classList.add('hidden');
+
+            if (tasksData[activeDay]?.link) {
+                const openLinkButton = createLinkButton('فتح الرابط', 'fas fa-link', 'open-link-button', () => window.open(tasksData[activeDay].link, '_blank'));
+                const editLinkButton = createLinkButton('تغيير', 'fas fa-edit', 'edit-link-button', showLinkInput);
+                const deleteLinkButton = createLinkButton('حذف', 'fas fa-trash', 'delete-link-button', deleteLink);
+
+                linkButtonsContainer.appendChild(openLinkButton);
+                if (isAdmin) {
+                    linkButtonsContainer.appendChild(editLinkButton);
+                    linkButtonsContainer.appendChild(deleteLinkButton);
+                }
+            }
+        }
+
+        // Create link button
+        function createLinkButton(text, iconClass, buttonClass, onClick) {
+            const button = document.createElement('button');
+            button.className = `link-button ${buttonClass}`;
+            button.innerHTML = `${text} <i class="${iconClass}"></i>`;
+            button.onclick = onClick;
+            return button;
+        }
+
+        // Show link input
+        function showLinkInput() {
+            linkInputContainer.classList.remove('hidden');
+            linkInput.value = tasksData[activeDay]?.link || '';
+            linkInput.focus();
+        }
+
+        // Save link
+        function saveLink() {
+            const link = linkInput.value.trim();
+            if (link) {
+                tasksData[activeDay].link = link;
+                saveTasksData();
+                renderLink();
+            }
+        }
+
+        // Delete link
+        function deleteLink() {
+            tasksData[activeDay].link = '';
+            saveTasksData();
+            renderLink();
+        }
+
+        // Update statistics
+        function updateStatistics() {
+            const weeklyProgress = calculateWeeklyProgress();
+            weeklyProgressBar.style.width = `${weeklyProgress}%`;
+            weeklyProgressText.textContent = `${weeklyProgress}% مكتمل`;
+
+            dailyStatistics.innerHTML = '';
+            days.forEach(day => {
+                const dayProgress = calculateDailyProgress(day);
+                const dayStatElement = document.createElement('div');
+                dayStatElement.className = 'daily-stat-item';
+                dayStatElement.innerHTML = `
+                    <h4>${day}</h4>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" style="width: ${dayProgress}%"></div>
+                    </div>
+                    <div class="progress-text">${dayProgress}% مكتمل</div>
+                `;
+                dailyStatistics.appendChild(dayStatElement);
+            });
+        }
+
+        // Calculate weekly progress
+        function calculateWeeklyProgress() {
+            let totalTasks = 0;
+            let completedTasks = 0;
+            Object.values(tasksData).forEach(dayData => {
+                totalTasks += dayData.tasks.length;
+                completedTasks += dayData.tasks.filter(task => task.completed).length;
+            });
+            return totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+        }
+
+        // Toggle statistics visibility
+        statisticsTitle.onclick = () => {
+            statisticsContent.classList.toggle('show');
+            statisticsTitle.querySelector('span').textContent = statisticsContent.classList.contains('show') ? '▲' : '▼';
+        };
+
+        // Add new task
+        addTaskButton.onclick = () => {
+            const newTaskId = `task-${activeDay}-${tasksData[activeDay].tasks.length}`;
+            tasksData[activeDay].tasks.push({
+                id: newTaskId,
+                category: 'مهمة جديدة',
+                text: 'أضف مهمة جديدة',
+                completed: false
+            });
+            saveTasksData();
+            renderTasks();
+        };
+
+        // Add link button click handler
+        addLinkButton.onclick = showLinkInput;
+
+        // Save link button click handler
+        saveLinkButton.onclick = saveLink;
+
+        // Admin mode toggle
+        adminButton.onclick = () => {
+            isAdmin = !isAdmin;
+            adminButton.textContent = isAdmin ? 'إيقاف وضع المشرف' : 'تفعيل وضع المشرف';
+            renderContent();
+        };
+
+        // Secret admin mode
+        let secretKeyPresses = [];
+        const secretCode = ['Control', 'Alt', 'a'];
+
+        document.addEventListener('keydown', (event) => {
+            secretKeyPresses.push(event.key);
+            secretKeyPresses = secretKeyPresses.slice(-secretCode.length);
+
+            if (secretKeyPresses.join(',') === secretCode.join(',')) {
+                adminButton.classList.remove('hidden');
+                setTimeout(() => adminButton.classList.add('hidden'), 5000);
             }
         });
 
-        console.log('تم تحميل المهام لكل يوم:', tasksData);
-    }
-    updateProgress();
-}
-
-// Updates the task appearance based on completion state
-function updateTaskAppearance(taskCell, isCompleted) {
-    const taskText = taskCell.querySelector('.task-text');
-    if (isCompleted) {
-        taskCell.classList.add('completed');
-        taskText.style.textDecoration = 'line-through';
-    } else {
-        taskCell.classList.remove('completed');
-        taskText.style.textDecoration = 'none';
-    }
-}
-
-// Shows input for adding a link for a task day
-function showLinkInput(btn) {
-    const cell = btn.closest('.links-cell');
-    const inputContainer = cell.querySelector('.link-input-container');
-    const input = cell.querySelector('.link-input');
-
-    btn.style.display = 'none';
-    inputContainer.style.display = 'flex';
-
-    setTimeout(() => {
-        inputContainer.style.opacity = '1';
-        input.focus();
-    }, 10);
-}
-
-// Saves the link entered for a task day
-function saveLink(btn) {
-    const cell = btn.closest('.links-cell');
-    const dayId = cell.dataset.day;
-    const input = cell.querySelector('.link-input');
-    const link = input.value.trim();
-
-    if (link) {
-        const linkDisplay = cell.querySelector('.link-display');
-        const linkText = linkDisplay.querySelector('.link-text');
-
-        linkText.href = link.startsWith('http') ? link : 'https://' + link;
-        linkText.textContent = 'اضغط هنا';
-        linkText.style.color = 'blue';
-        linkText.style.fontWeight = 'bold';
-
-        const inputContainer = cell.querySelector('.link-input-container');
-        inputContainer.style.opacity = '0';
-
-        setTimeout(() => {
-            inputContainer.style.display = 'none';
-            linkDisplay.style.display = 'flex';
-        }, 300);
-
-        saveLinkForDay(dayId, link);
-    } else {
-        cell.querySelector('.add-link-btn').style.display = 'block';
-        cell.querySelector('.link-input-container').style.display = 'none';
-    }
-}
-
-// Allows editing of an existing link
-function editLink(btn) {
-    const cell = btn.closest('.links-cell');
-    const linkDisplay = cell.querySelector('.link-display');
-    const inputContainer = cell.querySelector('.link-input-container');
-    const input = cell.querySelector('.link-input');
-    const linkText = cell.querySelector('.link-text');
-
-    input.value = linkText.href;
-    linkDisplay.style.display = 'none';
-    inputContainer.style.display = 'flex';
-
-    setTimeout(() => {
-        inputContainer.style.opacity = '1';
-        input.focus();
-    }, 10);
-}
-
-// Saves the link for a specific day in localStorage
-function saveLinkForDay(dayId, link) {
-    if (typeof(Storage) !== "undefined") {
-        if (link) {
-            const links = JSON.parse(localStorage.getItem('dayLinks') || '{}');
-            links[dayId] = link;
-            localStorage.setItem('dayLinks', JSON.stringify(links));
-
-            console.log(`تم حفظ الرابط لليوم: ${dayId} - ${link}`);
-        }
-    } else {
-        console.error('Local Storage غير مدعوم في هذا المتصفح');
-    }
-}
-
-// Loads saved links for each day from localStorage
-function loadSavedLinks() {
-    const links = JSON.parse(localStorage.getItem('dayLinks') || '{}');
-
-    document.querySelectorAll('.links-cell').forEach(cell => {
-        const dayId = cell.dataset.day;
-        const savedLink = links[dayId];
-
-        if (savedLink) {
-            const linkText = cell.querySelector('.link-text');
-            const addBtn = cell.querySelector('.add-link-btn');
-            const linkDisplay = cell.querySelector('.link-display');
-
-            linkText.href = savedLink.startsWith('http') ? savedLink : 'https://' + savedLink;
-            linkText.textContent = 'اضغط هنا';
-            linkText.style.color = 'blue';
-            linkText.style.fontWeight = 'bold';
-
-            addBtn.style.display = 'none';
-            linkDisplay.style.display = 'flex';
-        }
-    });
-
-    console.log('تم استرجاع الروابط المحفوظة.');
-}
-
-// Event listeners to load task and link data on window load
-window.addEventListener('load', () => {
-    loadTasksState();
-    loadSavedLinks();
-});
-
-</script>
+        // Initialize the app
+        init();
+    </script>
 </body>
 </html>
